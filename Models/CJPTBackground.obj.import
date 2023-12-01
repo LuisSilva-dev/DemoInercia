@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://doi2xfu4foroi"
+path="res://.godot/imported/CJPTBackground.obj-c2f44badc0da52f84810d978a7841bf0.mesh"
+
+[deps]
+
+files=["res://.godot/imported/CJPTBackground.obj-c2f44badc0da52f84810d978a7841bf0.mesh"]
+
+source_file="res://Models/CJPTBackground.obj"
+dest_files=["res://.godot/imported/CJPTBackground.obj-c2f44badc0da52f84810d978a7841bf0.mesh", "res://.godot/imported/CJPTBackground.obj-c2f44badc0da52f84810d978a7841bf0.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
