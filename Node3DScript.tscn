@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://da7srq4dhj86l"]
+
+[ext_resource type="Script" path="res://MeshInstance3D.gd" id="1_w51ot"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lu1b2"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_lu1b2")
+script = ExtResource("1_w51ot")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.954771, 0.297342, 0, -0.297342, 0.954771, 0, 1.07133, 2.77891)
