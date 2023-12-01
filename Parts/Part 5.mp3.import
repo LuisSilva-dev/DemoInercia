@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bfycs4qypr4jf"
+path="res://.godot/imported/Part 5.mp3-62c757145812ca1dce60d70077b2f804.mp3str"
+
+[deps]
+
+source_file="res://Parts/Part 5.mp3"
+dest_files=["res://.godot/imported/Part 5.mp3-62c757145812ca1dce60d70077b2f804.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
