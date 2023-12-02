@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://djcgxn1735880"]
+
+[ext_resource type="ArrayMesh" uid="uid://c0wwowfypsj1k" path="res://Models/CJPTBackground2.obj" id="1_wwt77"]
+[ext_resource type="Texture2D" uid="uid://dbhihjrqvng11" path="res://Textures/CJBackground3.png" id="2_kwqpp"]
+[ext_resource type="ArrayMesh" uid="uid://ceb8kjvouxdiy" path="res://Models/UtahTeapotFlat.obj" id="3_h08at"]
+[ext_resource type="Shader" path="res://Scenes/Wireframe.gdshader" id="4_r8v4o"]
+[ext_resource type="Script" path="res://CJPTTeapot.gd" id="5_3r8aj"]
+[ext_resource type="ArrayMesh" uid="uid://dsj62bpfhnfdk" path="res://Models/MER.obj" id="5_wcovq"]
+[ext_resource type="Script" path="res://CJPTRover.gd" id="7_gnkqi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2j3c"]
+albedo_texture = ExtResource("2_kwqpp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ngbxi"]
+render_priority = 0
+shader = ExtResource("4_r8v4o")
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/wire_color = Color(0.760784, 0.313726, 0, 1)
+shader_parameter/wire_width = 3.248
+shader_parameter/wire_smoothness = 0.006
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c5avk"]
+render_priority = 0
+shader = ExtResource("4_r8v4o")
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/wire_color = Color(0.690196, 0.690196, 0.690196, 1)
+shader_parameter/wire_width = 1.0
+shader_parameter/wire_smoothness = 0.01
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Background" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.237467, 0.37291, 0.896966, -0.00420478, 0.922975, -0.384836, -0.971387, -0.0951575, -0.217608, 22.741, 1.14307, -1.19462)
+mesh = ExtResource("1_wwt77")
+surface_material_override/0 = SubResource("StandardMaterial3D_d2j3c")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.0692919, -0.408449, 0.910147, -0.887767, 0.390911, 0.243018, -0.455047, -0.824838, -0.33552, 15.6335, 11.0699, -20.7492)
+fov = 53.0
+
+[node name="Teapot" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2493, 5.75395, -14.7197)
+mesh = ExtResource("3_h08at")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_ngbxi")
+script = ExtResource("5_3r8aj")
+
+[node name="Teapot2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2493, 5.75395, -14.7197)
+mesh = ExtResource("3_h08at")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_ngbxi")
+script = ExtResource("5_3r8aj")
+
+[node name="Rover" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0068642, -0.121326, -0.390684, 0.378404, 0.146592, -0.0521721, 0.155448, -0.362204, 0.10975, 13.6838, 10.6182, -19.6253)
+mesh = ExtResource("5_wcovq")
+surface_material_override/0 = SubResource("ShaderMaterial_c5avk")
+script = ExtResource("7_gnkqi")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.749961, 0.661482, 0, -0.661482, -0.749961, 13.3794, 14.4135, -23.6972)
+light_color = Color(1, 0.709804, 0, 1)
+light_energy = 5.0
+spot_range = 11.584
+spot_attenuation = 1.03526

@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://djcgxn1735880"]
+
+[ext_resource type="ArrayMesh" uid="uid://c0wwowfypsj1k" path="res://Models/CJPTBackground2.obj" id="1_wwt77"]
+[ext_resource type="Texture2D" uid="uid://4msn1jaenas4" path="res://Textures/CJBackground2.png" id="2_vq4e1"]
+[ext_resource type="Texture2D" uid="uid://dqqeqmje1gler" path="res://Textures/CJBackground2Bump.png" id="3_71540"]
+[ext_resource type="ArrayMesh" uid="uid://dvoip52eibw7e" path="res://Models/UtahTeapot.obj" id="4_bre7r"]
+[ext_resource type="Script" path="res://CJPTTeapot.gd" id="5_3r8aj"]
+[ext_resource type="ArrayMesh" uid="uid://dsj62bpfhnfdk" path="res://Models/MER.obj" id="5_wcovq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eefem"]
+albedo_texture = ExtResource("2_vq4e1")
+metallic = 0.39
+metallic_specular = 0.47
+metallic_texture = ExtResource("3_71540")
+metallic_texture_channel = 3
+roughness = 0.0
+roughness_texture_channel = 3
+normal_enabled = true
+normal_texture = ExtResource("3_71540")
+clearcoat_enabled = true
+clearcoat_roughness = 0.0
+heightmap_enabled = true
+heightmap_scale = 2.483
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("3_71540")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Background" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_wwt77")
+surface_material_override/0 = SubResource("StandardMaterial3D_eefem")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 8.60946e-08, -1.51808e-08, 3.80546e-08, 0.585014, 0.811023, 7.87057e-08, 0.811023, -0.585014, 15, 16.4082, -26.655)
+fov = 53.0
+
+[node name="Teapot" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.431582, 0.902074, 0, -0.902074, 0.431582, 14.2493, 5.75395, -8.67302)
+mesh = ExtResource("4_bre7r")
+skeleton = NodePath("")
+script = ExtResource("5_3r8aj")
+
+[node name="Rover" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.144408, 0, -0.989518, 0, 1, 0, 0.989518, 0, -0.144408, 13.6838, 12.1085, -11.9446)
+mesh = ExtResource("5_wcovq")
