@@ -13,12 +13,18 @@ config_version=5
 config/name="DemoInercia"
 run/main_scene="res://Scenes/Intro.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 <<<<<<<HEADrun/main_scene="res://Node3DScript.tscn"
 
 [autoload]
 
 MusicController="*res://autoloads/MusicController.tscn"
+
+[display]
+
+window/size/mode=3
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
