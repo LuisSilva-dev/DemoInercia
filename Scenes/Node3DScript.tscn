@@ -1,37 +1,37 @@
 [gd_scene load_steps=17 format=3 uid="uid://da7srq4dhj86l"]
 
-[ext_resource type="Texture2D" uid="uid://766rsvespdw5" path="res://Textures/CJPTCube.png" id="1_c3m2c"]
-[ext_resource type="Script" path="res://CJPTCube.gd" id="1_w51ot"]
-[ext_resource type="Texture2D" uid="uid://b3t0j44j3fyyc" path="res://Textures/CJPTCubeEmission.png" id="2_ndq2r"]
-[ext_resource type="Texture2D" uid="uid://bib2gn058p76w" path="res://Textures/CJPTCubeBump.png" id="3_ix4uy"]
-[ext_resource type="Texture2D" uid="uid://dlvksno8s1kmx" path="res://Textures/CJPTCubeMetallic.png" id="4_hlfc3"]
-[ext_resource type="ArrayMesh" uid="uid://doi2xfu4foroi" path="res://Models/CJPTBackground.obj" id="6_hm37t"]
-[ext_resource type="Texture2D" uid="uid://ddqnfxomkubo8" path="res://Textures/CJBackground.png" id="7_f3naf"]
-[ext_resource type="Texture2D" uid="uid://qab4vgxscokm" path="res://Textures/CJBackgroundEmission.png" id="8_ca35v"]
-[ext_resource type="Script" path="res://CJPTBackground.gd" id="9_wbep6"]
-[ext_resource type="ArrayMesh" uid="uid://xiqmemaup4lc" path="res://Models/CJPTNiceColumn.obj" id="10_6appy"]
-[ext_resource type="Texture2D" uid="uid://cmqrj5mgncw1l" path="res://Textures/Carrera_Marble.jpg" id="11_vpdxb"]
-[ext_resource type="Script" path="res://CJPTColumn.gd" id="12_xp528"]
+[ext_resource type="Texture2D" uid="uid://766rsvespdw5" path="res://Textures/CJPTCube.png" id="1_aens7"]
+[ext_resource type="Texture2D" uid="uid://b3t0j44j3fyyc" path="res://Textures/CJPTCubeEmission.png" id="2_jg7cs"]
+[ext_resource type="Texture2D" uid="uid://bib2gn058p76w" path="res://Textures/CJPTCubeBump.png" id="3_ulgm5"]
+[ext_resource type="Texture2D" uid="uid://dlvksno8s1kmx" path="res://Textures/CJPTCubeMetallic.png" id="4_b2ul0"]
+[ext_resource type="Script" path="res://Models/CJPTCube.gd" id="5_ywcnn"]
+[ext_resource type="ArrayMesh" uid="uid://doi2xfu4foroi" path="res://Models/CJPTBackground.obj" id="6_4bnap"]
+[ext_resource type="Texture2D" uid="uid://ddqnfxomkubo8" path="res://Textures/CJBackground.png" id="7_yysnb"]
+[ext_resource type="Texture2D" uid="uid://qab4vgxscokm" path="res://Textures/CJBackgroundEmission.png" id="8_6m3rm"]
+[ext_resource type="Script" path="res://Models/CJPTBackground.gd" id="9_ms0hs"]
+[ext_resource type="ArrayMesh" uid="uid://xiqmemaup4lc" path="res://Models/CJPTNiceColumn.obj" id="10_5re00"]
+[ext_resource type="Texture2D" uid="uid://cmqrj5mgncw1l" path="res://Textures/Carrera_Marble.jpg" id="11_cii31"]
+[ext_resource type="Script" path="res://Models/CJPTColumn.gd" id="12_37d5h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lu1b2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t5kaa"]
-albedo_texture = ExtResource("1_c3m2c")
+albedo_texture = ExtResource("1_aens7")
 metallic = 1.0
 metallic_specular = 0.57
-metallic_texture = ExtResource("4_hlfc3")
+metallic_texture = ExtResource("4_b2ul0")
 metallic_texture_channel = 3
 roughness = 0.26
-roughness_texture = ExtResource("3_ix4uy")
+roughness_texture = ExtResource("3_ulgm5")
 roughness_texture_channel = 4
 emission_enabled = true
 emission = Color(0.0235294, 0.756863, 0.870588, 1)
 emission_operator = 1
-emission_texture = ExtResource("2_ndq2r")
+emission_texture = ExtResource("2_jg7cs")
 normal_enabled = true
 clearcoat_enabled = true
 clearcoat_roughness = 0.0
-clearcoat_texture = ExtResource("3_ix4uy")
+clearcoat_texture = ExtResource("3_ulgm5")
 ao_enabled = true
 ao_light_affect = 0.25
 ao_texture_channel = 3
@@ -39,21 +39,21 @@ heightmap_enabled = true
 heightmap_deep_parallax = true
 heightmap_min_layers = 8
 heightmap_max_layers = 32
-heightmap_texture = ExtResource("3_ix4uy")
+heightmap_texture = ExtResource("3_ulgm5")
 backlight = Color(0, 1, 0, 1)
-backlight_texture = ExtResource("2_ndq2r")
+backlight_texture = ExtResource("2_jg7cs")
 uv1_scale = Vector3(3, 2, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1ft3"]
-albedo_texture = ExtResource("7_f3naf")
+albedo_texture = ExtResource("7_yysnb")
 emission_enabled = true
 emission = Color(0.776471, 0, 0.796078, 1)
 emission_operator = 1
-emission_texture = ExtResource("8_ca35v")
+emission_texture = ExtResource("8_6m3rm")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ph150"]
 diffuse_mode = 1
-albedo_texture = ExtResource("11_vpdxb")
+albedo_texture = ExtResource("11_cii31")
 roughness = 0.1
 rim_enabled = true
 rim = 0.16
@@ -66,7 +66,7 @@ clearcoat_roughness = 0.0
 [node name="Cube" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_lu1b2")
 surface_material_override/0 = SubResource("StandardMaterial3D_t5kaa")
-script = ExtResource("1_w51ot")
+script = ExtResource("5_ywcnn")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.858495, 0.512822, 0, -0.512822, 0.858495, 0, 1.7165, 2.77891)
@@ -80,12 +80,12 @@ spot_range = 10.7354
 
 [node name="Background" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.21551, 0)
-mesh = ExtResource("6_hm37t")
+mesh = ExtResource("6_4bnap")
 surface_material_override/0 = SubResource("StandardMaterial3D_n1ft3")
-script = ExtResource("9_wbep6")
+script = ExtResource("9_ms0hs")
 
 [node name="NiceColumn" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.19658, 0, 0, 0, 1.26583, 0, 0, 0, 2.19658, 0, -2.20371, 0)
-mesh = ExtResource("10_6appy")
+mesh = ExtResource("10_5re00")
 surface_material_override/0 = SubResource("StandardMaterial3D_ph150")
-script = ExtResource("12_xp528")
+script = ExtResource("12_37d5h")

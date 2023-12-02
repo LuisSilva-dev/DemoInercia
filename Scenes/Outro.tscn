@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7su61g1v2ksi"]
+
+[ext_resource type="Script" path="res://Scenes/Outro.gd" id="1_u2lvr"]
+
+[node name="Outro" type="Node2D" node_paths=PackedStringArray("title1", "title2", "back")]
+script = ExtResource("1_u2lvr")
+title1 = NodePath("BigTitle1")
+title2 = NodePath("Label")
+back = NodePath("CanvasLayer/ColorRect")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.25098, 0.501961, 1)
+
+[node name="BigTitle1" type="Label" parent="."]
+offset_left = -316.0
+offset_top = 717.0
+offset_right = 1846.0
+offset_bottom = 1188.0
+rotation = -0.0401185
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 55
+text = "Created by
+Buu342
+Tiago Nunes
+
+Made Proudly with
+Godot 4.2
+
+Music by 
+Kevin MacLeod
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 25.0
+offset_top = 140.0
+offset_right = 1122.0
+offset_bottom = 500.0
+theme_override_font_sizes/font_size = 86
+text = "DONT FORGET
+TO COME TO
+INERCIA DEMOPARTY 2005"
+horizontal_alignment = 1

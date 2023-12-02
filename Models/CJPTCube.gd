@@ -6,6 +6,9 @@ var currentAngle = 0
 var centre
 var rotationSpeed = 1
 
+var curTime: float = 0.0
+var SCENETIME = 12.68
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,6 +18,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	curTime += delta
+	if (curTime > SCENETIME):
+		get_tree().change_scene_to_file("res://Scenes/SceneBuu1.tscn")
 	pass
 	
 

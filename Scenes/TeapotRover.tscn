@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://djcgxn1735880"]
+[gd_scene load_steps=12 format=3 uid="uid://djcgxn1735880"]
 
+[ext_resource type="Script" path="res://Scenes/TeapotRover.gd" id="1_v58oc"]
 [ext_resource type="ArrayMesh" uid="uid://c0wwowfypsj1k" path="res://Models/CJPTBackground2.obj" id="1_wwt77"]
 [ext_resource type="Texture2D" uid="uid://dbhihjrqvng11" path="res://Textures/CJBackground3.png" id="2_kwqpp"]
 [ext_resource type="ArrayMesh" uid="uid://ceb8kjvouxdiy" path="res://Models/UtahTeapotFlat.obj" id="3_h08at"]
-[ext_resource type="Shader" path="res://Scenes/Wireframe.gdshader" id="4_r8v4o"]
-[ext_resource type="Script" path="res://CJPTTeapot.gd" id="5_3r8aj"]
+[ext_resource type="Shader" path="res://Shaders/Wireframe.gdshader" id="4_r8v4o"]
+[ext_resource type="Script" path="res://Models/CJPTTeapot.gd" id="5_3r8aj"]
 [ext_resource type="ArrayMesh" uid="uid://dsj62bpfhnfdk" path="res://Models/MER.obj" id="5_wcovq"]
-[ext_resource type="Script" path="res://CJPTRover.gd" id="7_gnkqi"]
+[ext_resource type="Script" path="res://Models/CJPTRover.gd" id="7_gnkqi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2j3c"]
 albedo_texture = ExtResource("2_kwqpp")
@@ -28,6 +29,7 @@ shader_parameter/wire_width = 1.0
 shader_parameter/wire_smoothness = 0.01
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_v58oc")
 
 [node name="Background" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.237467, 0.37291, 0.896966, -0.00420478, 0.922975, -0.384836, -0.971387, -0.0951575, -0.217608, 22.741, 1.14307, -1.19462)
