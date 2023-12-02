@@ -27,12 +27,15 @@ func GetFrequency(val):
 	# Val should be between 0 and VU_COUNT
 	var w = WIDTH / VU_COUNT
 	var prev_hz = 0
-	var hz = val * FREQ_MAX / VU_COUNT;
-	var magnitude: float = spectrum.get_magnitude_for_frequency_range(prev_hz, hz).length()
-	var energy = clamp((MIN_DB + linear_to_db(magnitude)) / MIN_DB, 0, 1)
-	var height = energy * HEIGHT
-	print(height)
-	prev_hz = hz
+	for i in range(1, VU_COUNT+1):
+		var hz = i * FREQ_MAX / VU_COUNT;
+		var magnitude: float = spectrum.get_magnitude_for_frequency_range(prev_hz, hz).length()
+		var energy = clamp((MIN_DB + linear_to_db(magnitude)) / MIN_DB, 0, 1)
+		var height = energy * HEIGHT
+		if (i == val):
+			return height
+		prev_hz = hz
+	return 0
 
 func play_music():
 	print("Playing music")

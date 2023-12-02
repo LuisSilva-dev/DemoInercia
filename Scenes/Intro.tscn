@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bobpvai5w8j2"]
+[gd_scene load_steps=23 format=3 uid="uid://bobpvai5w8j2"]
 
 [ext_resource type="Shader" path="res://Scenes/Intro.gdshader" id="2_fib5m"]
 [ext_resource type="Shader" path="res://Scenes/Wireframe.gdshader" id="3_mbylj"]
@@ -7,13 +7,33 @@
 [sub_resource type="GDScript" id="GDScript_6lsqt"]
 script/source = "extends Node3D
 
+@export var shapes: Array[StaticBody3D] = [null, null, null, null]
+@export var volumes: Array[Node] = [null, null, null, null]
+var initialy: Array[float] = [0, 0, 0, 0]
+var lasty: Array[float] = [0, 0, 0, 0]
+
 func _ready():
+	for i in range(0, 4):
+		if shapes[i] != null:
+			initialy[i] = -6
+		if volumes[i] != null:
+			for j in range(0, 4):
+				volumes[i].get_node(\"Vol\"+str(j+1)).visible = false
 	MusicController.play_music()
 	MusicController.InitSpectrum()
 
 func _process(_delta):
-	MusicController.GetFrequency(3)
-	
+	for i in range(0, 4):
+		var height = MusicController.GetFrequency((i+1)*3)/10.0
+		if shapes[i] != null:
+			shapes[i].position.y = lerp(lasty[i], initialy[i] + height, 0.1)
+			lasty[i] = shapes[i].position.y
+		if volumes[i] != null:
+			for j in range(0, 4):
+				if (height > j+1):
+					volumes[i].get_node(\"Vol\"+str(j+1)).visible = true
+				else:
+					volumes[i].get_node(\"Vol\"+str(j+1)).visible = false
 "
 
 [sub_resource type="Environment" id="Environment_mbtxr"]
@@ -43,16 +63,49 @@ render_priority = 0
 shader = ExtResource("3_mbylj")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/wire_color = Color(0, 1, 1, 1)
-shader_parameter/wire_width = 2.0
-shader_parameter/wire_smoothness = 0.02
+shader_parameter/wire_width = 1.0
+shader_parameter/wire_smoothness = 0.025
 
 [sub_resource type="BoxMesh" id="BoxMesh_1v2lb"]
 
-[node name="Intro" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_80ra0"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_pd4pl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qusw2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_n8k28"]
+radial_segments = 16
+rings = 4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f8hea"]
+size = Vector3(1, 1.1582, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sbp14"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pgymc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lsfbq"]
+shading_mode = 0
+albedo_color = Color(0.945098, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlafw"]
+shading_mode = 0
+albedo_color = Color(1, 0.827451, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbile"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Intro" type="Node3D" node_paths=PackedStringArray("shapes", "volumes")]
 script = SubResource("GDScript_6lsqt")
+shapes = [NodePath("Volume1"), NodePath("Volume2"), NodePath("Volume3"), NodePath("Volume4")]
+volumes = [NodePath("VolumeBoxes1"), NodePath("VolumeBoxes2"), NodePath("VolumeBoxes3"), NodePath("VolumeBoxes4")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 4.17146e-08, -7.68286e-08, 0, 0.878817, 0.477159, 8.74228e-08, 0.477159, -0.878817, 0, 2.53585, -4.08379)
+transform = Transform3D(-1, 4.17146e-08, -7.68286e-08, 8.2743e-09, 0.920034, 0.39184, 8.70303e-08, 0.39184, -0.920034, 0.166674, 5.29415, -6.21009)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Camera3D"]
 environment = SubResource("Environment_mbtxr")
@@ -69,23 +122,203 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_nh7lg")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Map" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135925, -0.663655, -0.120804)
 physics_material_override = SubResource("PhysicsMaterial_q58co")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(3.04235, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map"]
+transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_6j5lo")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02022, 0)
-physics_material_override = SubResource("PhysicsMaterial_sgy4w")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Map"]
+transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.23529, 0)
+shape = SubResource("BoxShape3D_6j5lo")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Map"]
+transform = Transform3D(0.2, 0, 0, 0, 7.995, 0, 0, 0, 1, 8.07956, 3.53195, 0)
+shape = SubResource("BoxShape3D_6j5lo")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Map"]
+transform = Transform3D(0.2, 0, 0, 0, 7.995, 0, 0, 0, 1, -8.11422, 3.53195, 0)
+shape = SubResource("BoxShape3D_6j5lo")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Map"]
+transform = Transform3D(-8.74228e-09, 0, 4.16, 0, 7.995, 0, -0.2, 0, -1.81839e-07, -0.0252116, 3.53195, -2.55056)
+shape = SubResource("BoxShape3D_6j5lo")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Map"]
+transform = Transform3D(-8.74228e-09, 0, 4.16, 0, 7.995, 0, -0.2, 0, -1.81839e-07, -0.0288983, 3.54487, 2.44755)
+shape = SubResource("BoxShape3D_6j5lo")
+
+[node name="Shape1" type="RigidBody3D" parent="."]
+transform = Transform3D(-0.188478, 0.982077, 0, -0.982077, -0.188478, 0, 0, 0, 1, 4.03355, 1.31044, 0.00490952)
+physics_material_override = SubResource("PhysicsMaterial_sgy4w")
+linear_velocity = Vector3(10, 10, 0)
+angular_velocity = Vector3(0.0349066, 0.0349066, 0.0349066)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shape1"]
 shape = SubResource("BoxShape3D_dyanh")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Shape1"]
 material_override = SubResource("ShaderMaterial_1i6l5")
 transparency = 1.0
 mesh = SubResource("BoxMesh_1v2lb")
+
+[node name="Shape2" type="RigidBody3D" parent="."]
+transform = Transform3D(0.636994, 0.770869, 0, -0.770869, 0.636994, 0, 0, 0, 1, -0.0328884, 5.30231, 0.0280342)
+physics_material_override = SubResource("PhysicsMaterial_sgy4w")
+linear_velocity = Vector3(10, 10, 0)
+angular_velocity = Vector3(0.0349066, 0.0349066, 0.0349066)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shape2"]
+shape = SubResource("BoxShape3D_80ra0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Shape2"]
+material_override = SubResource("ShaderMaterial_1i6l5")
+transparency = 1.0
+mesh = SubResource("PrismMesh_pd4pl")
 skeleton = NodePath("../..")
+
+[node name="Shape3" type="RigidBody3D" parent="."]
+transform = Transform3D(0.636994, 0.770869, 0, -0.770869, 0.636994, 0, 0, 0, 1, -3.87261, 3.16586, 0.0280342)
+physics_material_override = SubResource("PhysicsMaterial_sgy4w")
+linear_velocity = Vector3(10, 10, 0)
+angular_velocity = Vector3(0.0349066, -0.00410152, 0.0349066)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shape3"]
+shape = SubResource("SphereShape3D_qusw2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Shape3"]
+material_override = SubResource("ShaderMaterial_1i6l5")
+transparency = 1.0
+mesh = SubResource("SphereMesh_n8k28")
+skeleton = NodePath("../..")
+
+[node name="Volume1" type="StaticBody3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 10, 0, 0, 0, 3, 5.52546, -6, 0)
+
+[node name="Volume1_Col" type="CollisionShape3D" parent="Volume1"]
+shape = SubResource("BoxShape3D_f8hea")
+
+[node name="Volume2" type="StaticBody3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 10, 0, 0, 0, 3, 1.87841, -6, 0)
+
+[node name="Volume2_Col" type="CollisionShape3D" parent="Volume2"]
+shape = SubResource("BoxShape3D_f8hea")
+
+[node name="Volume3" type="StaticBody3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 10, 0, 0, 0, 3, -1.97376, -6, 0)
+
+[node name="Volume3_Col" type="CollisionShape3D" parent="Volume3"]
+shape = SubResource("BoxShape3D_f8hea")
+
+[node name="Volume4" type="StaticBody3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 10, 0, 0, 0, 3, -1.97376, -6, 0)
+
+[node name="Volume4_Col" type="CollisionShape3D" parent="Volume4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.21471, 0, 0)
+shape = SubResource("BoxShape3D_f8hea")
+
+[node name="VolumeBoxes1" type="Node" parent="."]
+
+[node name="Vol1" type="MeshInstance3D" parent="VolumeBoxes1"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 5.52546, 0.196719, 0)
+material_override = SubResource("StandardMaterial3D_sbp14")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol2" type="MeshInstance3D" parent="VolumeBoxes1"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 5.52546, 1.40093, 0)
+material_override = SubResource("StandardMaterial3D_lsfbq")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol3" type="MeshInstance3D" parent="VolumeBoxes1"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 5.52546, 2.47347, 0)
+material_override = SubResource("StandardMaterial3D_jlafw")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol4" type="MeshInstance3D" parent="VolumeBoxes1"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 5.52546, 3.53425, 0)
+material_override = SubResource("StandardMaterial3D_xbile")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="VolumeBoxes2" type="Node" parent="."]
+
+[node name="Vol1" type="MeshInstance3D" parent="VolumeBoxes2"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 1.84128, 0.196719, 0)
+material_override = SubResource("StandardMaterial3D_sbp14")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol2" type="MeshInstance3D" parent="VolumeBoxes2"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 1.84128, 1.40093, 0)
+material_override = SubResource("StandardMaterial3D_lsfbq")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol3" type="MeshInstance3D" parent="VolumeBoxes2"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 1.84128, 2.47347, 0)
+material_override = SubResource("StandardMaterial3D_jlafw")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol4" type="MeshInstance3D" parent="VolumeBoxes2"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, 1.84128, 3.53425, 0)
+material_override = SubResource("StandardMaterial3D_xbile")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="VolumeBoxes3" type="Node" parent="."]
+
+[node name="Vol1" type="MeshInstance3D" parent="VolumeBoxes3"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -2.01931, 0.196719, 0)
+material_override = SubResource("StandardMaterial3D_sbp14")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol2" type="MeshInstance3D" parent="VolumeBoxes3"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -2.01931, 1.40093, 0)
+material_override = SubResource("StandardMaterial3D_lsfbq")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol3" type="MeshInstance3D" parent="VolumeBoxes3"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -2.01931, 2.47347, 0)
+material_override = SubResource("StandardMaterial3D_jlafw")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol4" type="MeshInstance3D" parent="VolumeBoxes3"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -2.01931, 3.53425, 0)
+material_override = SubResource("StandardMaterial3D_xbile")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="VolumeBoxes4" type="Node" parent="."]
+
+[node name="Vol1" type="MeshInstance3D" parent="VolumeBoxes4"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -5.63067, 0.196719, 0)
+material_override = SubResource("StandardMaterial3D_sbp14")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol2" type="MeshInstance3D" parent="VolumeBoxes4"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -5.63067, 1.40093, 0)
+material_override = SubResource("StandardMaterial3D_lsfbq")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol3" type="MeshInstance3D" parent="VolumeBoxes4"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -5.63067, 2.47347, 0)
+material_override = SubResource("StandardMaterial3D_jlafw")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
+
+[node name="Vol4" type="MeshInstance3D" parent="VolumeBoxes4"]
+transform = Transform3D(3, 0, 0, 0, 0.89, 0, 0, 0, 3, -5.63067, 3.53425, 0)
+material_override = SubResource("StandardMaterial3D_xbile")
+mesh = SubResource("BoxMesh_pgymc")
+skeleton = NodePath("../../Volume1")
